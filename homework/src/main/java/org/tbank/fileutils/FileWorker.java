@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.io.FileWriter;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
@@ -38,10 +39,13 @@ public class FileWorker {
    * @param data the data to write into the file
    */
   public static void createFileWithData(String pathToSave, String data){
-    try (FileWriter fileWriter = new FileWriter(pathToSave)) {
-      Files.createDirectories(Paths.get(pathToSave).getParent());
-      fileWriter.write(data);
-      log.info(SUCCESS.getText());
+    try {
+      Path path = Paths.get(pathToSave);
+      Files.createDirectories(path.getParent());
+      try (FileWriter fileWriter = new FileWriter(path.toFile())) {
+        fileWriter.write(data);
+        log.info(SUCCESS.getText());
+      }
     } catch (IOException e) {
       log.error(ERROR_WHILE_CREATING_FILE.getText(), e);
       throw new IllegalStateException(ERROR_WHILE_CREATING_FILE.getText(), e);

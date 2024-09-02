@@ -1,13 +1,11 @@
 package org.tbank.controller;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.tbank.models.City;
 import org.tbank.view.View;
 
-import java.io.IOException;
 
 import static org.tbank.controller.ApplicationMessage.*;
 import static org.tbank.decoder.JsonDecoder.decodeJson;

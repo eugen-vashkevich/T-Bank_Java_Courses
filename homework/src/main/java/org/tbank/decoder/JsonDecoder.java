@@ -1,5 +1,6 @@
 package org.tbank.decoder;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 import static org.tbank.decoder.ErrorReason.ERROR_WHILE_PARSING_FILE;
+import static org.tbank.decoder.InfoMessage.SUCCESS;
 
 /** Provides functionality to decode JSON files into the specified type. */
 @Slf4j
@@ -18,17 +20,20 @@ public class JsonDecoder {
    * @param bytesToBeDecoded The raw bytes which should be decoded.
    * @param classToDecode Representing the type of the object to be decoded.
    * @return The type of the object to be decoded represented in <var>classToDecode</var>.
-   * @throws IOException If there is an error reading the file or parsing the JSON.
    */
-  public static <T> T decodeJson(byte[] bytesToBeDecoded, TypeReference<T> classToDecode)
-      throws IOException {
+  public static <T> T decodeJson(byte[] bytesToBeDecoded, TypeReference<T> classToDecode) {
+    ObjectMapper mapper = new ObjectMapper();
     try {
-      ObjectMapper mapper = new ObjectMapper();
       JsonNode jsonNode = mapper.readTree(bytesToBeDecoded);
-      return mapper.readValue(jsonNode.traverse(), classToDecode);
+      final var result = mapper.readValue(jsonNode.traverse(), classToDecode);
+      log.info(SUCCESS.getText(), classToDecode.getType());
+      return result;
+    } catch (JsonParseException e) {
+      log.error(ERROR_WHILE_PARSING_FILE.getText(), e);
+      throw new IllegalArgumentException(ERROR_WHILE_PARSING_FILE.getText(), e);
     } catch (IOException e) {
-      log.error(ERROR_WHILE_PARSING_FILE.getText(), e.getMessage());
-      throw new IllegalStateException(ERROR_WHILE_PARSING_FILE.getText(), e);
+      log.error(ERROR_WHILE_PARSING_FILE.getText());
+      throw new IllegalStateException(ERROR_WHILE_PARSING_FILE.getText());
     }
   }
 }

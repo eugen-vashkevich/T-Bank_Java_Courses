@@ -1,9 +1,11 @@
 package org.tbank.encoder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+
+import static org.tbank.encoder.InfoMessage.SUCCESS;
 import static org.tbank.encoder.ErrorReason.ERROR_WHILE_CONVERTING_TO_XML;
 
 /** Provides a utility method for converting Java objects into XML format. */
@@ -21,8 +23,10 @@ public class XmlBuilder {
   public static <T> String toXml(T classToBeConverted) {
     final var xmlMapper = new XmlMapper();
     try {
-      return xmlMapper.writeValueAsString(classToBeConverted);
-    } catch (JsonProcessingException e) {
+      final var xmlFormat = xmlMapper.writeValueAsString(classToBeConverted);
+      log.info(SUCCESS.getText());
+      return xmlFormat;
+    } catch (IOException e) {
       log.error(ERROR_WHILE_CONVERTING_TO_XML.getText(), e);
       throw new IllegalStateException(ERROR_WHILE_CONVERTING_TO_XML.getText(), e);
     }

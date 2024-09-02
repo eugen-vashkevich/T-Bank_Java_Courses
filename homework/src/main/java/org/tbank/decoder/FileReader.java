@@ -17,7 +17,7 @@ public class FileReader {
    * @return Array of bytes read from file.
    * @throws IOException If file does not exist or is an error reading file.
    */
-  public byte[] readBytesFromFile(String pathToFile) {
+  public static byte[] readBytesFromFile(String pathToFile) throws IOException {
     try {
       final var file = new File(pathToFile);
       return Files.readAllBytes(file.toPath());

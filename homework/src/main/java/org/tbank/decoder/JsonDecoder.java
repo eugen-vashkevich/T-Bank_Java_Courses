@@ -29,9 +29,11 @@ public class JsonDecoder {
       log.info(SUCCESS.getText(), classToDecode.getType());
       return result;
     } catch (JsonParseException e) {
+      log.warn(ERROR_WHILE_PARSING_FILE.getText(), e.getMessage());
       log.error(ERROR_WHILE_PARSING_FILE.getText(), e);
       throw new IllegalArgumentException(ERROR_WHILE_PARSING_FILE.getText(), e);
     } catch (IOException e) {
+      log.warn(ERROR_WHILE_PARSING_FILE.getText(), e.getMessage());
       log.error(ERROR_WHILE_PARSING_FILE.getText());
       throw new IllegalStateException(ERROR_WHILE_PARSING_FILE.getText());
     }

@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
 import static org.tbank.fileutils.ErrorReason.ERROR_WHILE_CREATING_FILE;
 import static org.tbank.fileutils.ErrorReason.ERROR_WHILE_READING_FILE;
 import static org.tbank.fileutils.InfoMessage.SUCCESS;
@@ -27,6 +26,7 @@ public class FileWorker {
       final var file = new File(pathToFile);
       return Files.readAllBytes(file.toPath());
     } catch (IOException e) {
+      log.warn(ERROR_WHILE_READING_FILE.getText(), e);
       log.error(ERROR_WHILE_READING_FILE.getText(), e);
       throw new IllegalStateException(ERROR_WHILE_READING_FILE.getText(), e);
     }
@@ -38,7 +38,7 @@ public class FileWorker {
    * @param pathToSave the pathToSaveFile
    * @param data the data to write into the file
    */
-  public static void createFileWithData(String pathToSave, String data){
+  public static void createFileWithData(String pathToSave, String data) {
     try {
       Path path = Paths.get(pathToSave);
       Files.createDirectories(path.getParent());
@@ -47,6 +47,7 @@ public class FileWorker {
         log.info(SUCCESS.getText());
       }
     } catch (IOException e) {
+      log.warn(ERROR_WHILE_CREATING_FILE.getText(), e);
       log.error(ERROR_WHILE_CREATING_FILE.getText(), e);
       throw new IllegalStateException(ERROR_WHILE_CREATING_FILE.getText(), e);
     }

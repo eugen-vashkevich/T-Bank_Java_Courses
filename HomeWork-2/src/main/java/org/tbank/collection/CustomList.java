@@ -2,7 +2,7 @@ package org.tbank.collection;
 
 import java.util.List;
 
-public interface CustomList<T> extends Iterable<T> {
+public interface CustomList<T> {
   T get(int index);
 
   boolean add(T data);

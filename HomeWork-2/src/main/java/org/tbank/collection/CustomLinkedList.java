@@ -1,11 +1,13 @@
 package org.tbank.collection;
 
 import lombok.NoArgsConstructor;
-
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
+/**
+ * A custom implementation of a linked list.
+ *
+ * @param <T> the type of elements held in this list.
+ */
 @NoArgsConstructor
 public class CustomLinkedList<T> implements CustomList<T> {
   private Node<T> head;
@@ -13,10 +15,22 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
   private int size;
 
+  /**
+   * Constructs a CustomLinkedList with the specified values.
+   *
+   * @param values the initial values to add to the list
+   */
   public CustomLinkedList(List<? extends T> values) {
     addAll(values);
   }
 
+  /**
+   * Retrieves the element at the specified position in this list.
+   *
+   * @param index index of the element to return.
+   * @return the element at the specified position in this list.
+   * @throws IndexOutOfBoundsException if the index is out of range.
+   */
   @Override
   public T get(int index) {
     if (index < 0 || index >= size) {
@@ -29,6 +43,12 @@ public class CustomLinkedList<T> implements CustomList<T> {
     return current.getValue();
   }
 
+  /**
+   * Appends the specified element to the end of this list.
+   *
+   * @param data element to be appended to this list.
+   * @return true if successfully added element.
+   */
   @Override
   public boolean add(T data) {
     final var newNode = new Node<>(data);
@@ -43,6 +63,12 @@ public class CustomLinkedList<T> implements CustomList<T> {
     return true;
   }
 
+  /**
+   * Removes the first occurrence of the specified element from this list, if it is present.
+   *
+   * @param data element to be removed from this list, if present
+   * @return true if this list contained the specified element
+   */
   @Override
   public boolean remove(T data) {
     var node = head;
@@ -55,6 +81,13 @@ public class CustomLinkedList<T> implements CustomList<T> {
     return false;
   }
 
+  /**
+   * Removes the element at the specified position in this list.
+   *
+   * @param index the index of the element to be removed.
+   * @return true if the element was successfully removed.
+   * @throws IndexOutOfBoundsException if the index is out of range
+   */
   @Override
   public boolean removeAt(int index) {
     if (index < 0 || index >= size) {
@@ -85,11 +118,18 @@ public class CustomLinkedList<T> implements CustomList<T> {
     return true;
   }
 
+  /** Returns size of the list. */
   @Override
   public int size() {
     return size;
   }
 
+  /**
+   * Returns true if this list contains the specified element.
+   *
+   * @param data element whose presence in this list is to be tested
+   * @return true if this list contains the specified element
+   */
   @Override
   public boolean contains(T data) {
     var current = head;
@@ -102,6 +142,12 @@ public class CustomLinkedList<T> implements CustomList<T> {
     return false;
   }
 
+  /**
+   * Appends all of the elements in the specified collection to the end of this list.
+   *
+   * @param values collection containing elements to be added to this list
+   * @return true if this list changed as a result of the call
+   */
   @Override
   public boolean addAll(List<? extends T> values) {
     for (var item : values) {
@@ -110,30 +156,12 @@ public class CustomLinkedList<T> implements CustomList<T> {
     return true;
   }
 
-  @Override
-  public Iterator<T> iterator() {
-    return new CustomLinkedListIterator();
-  }
-
-  private class CustomLinkedListIterator implements Iterator<T> {
-    private Node<T> current = head;
-
-    @Override
-    public boolean hasNext() {
-      return current != null;
-    }
-
-    @Override
-    public T next() {
-      if (!hasNext()) {
-        throw new NoSuchElementException();
-      }
-      final T data = current.getValue();
-      current = current.getNext();
-      return data;
-    }
-  }
-
+  /**
+   * Compares the specified object with this list for equality.
+   *
+   * @param obj the object to be compared for equality with this list
+   * @return true if the specified object is equal to this list
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -163,10 +191,15 @@ public class CustomLinkedList<T> implements CustomList<T> {
     return true;
   }
 
+  /**
+   * Returns a string representation of this list.
+   *
+   * @return a string representation of this list
+   */
   @Override
   public String toString() {
     final var sb = new StringBuilder("[");
-   var current = head;
+    var current = head;
     while (current != null) {
       sb.append(current.getValue());
       if (current.getNext() != null) {

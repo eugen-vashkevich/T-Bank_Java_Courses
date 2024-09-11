@@ -22,8 +22,8 @@ class CustomLinkedListSizeTest {
 
   @Test
   void linkedListWithTwoElements_whenCheckSize_thenReturnsTwo() {
-    //Given
-    final var list = new CustomLinkedList<>(List.of(1,2));
+    // Given
+    final var list = new CustomLinkedList<>(List.of(1, 2));
     final int expectedSize = 2;
 
     // When

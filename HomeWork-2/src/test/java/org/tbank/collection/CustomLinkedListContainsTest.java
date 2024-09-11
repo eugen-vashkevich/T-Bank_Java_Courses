@@ -22,7 +22,7 @@ class CustomLinkedListContainsTest {
   @Test
   void nonEmptyList_whenContainsElementsWhichIsMissing_thenReturnsFalse() {
     // Given
-    final var list = new CustomLinkedList<>(List.of(1,3,2,5));
+    final var list = new CustomLinkedList<>(List.of(1, 3, 2, 5));
     final var expectedResult = false;
 
     // When
@@ -35,7 +35,7 @@ class CustomLinkedListContainsTest {
   @Test
   void nonEmptyList_whenContainsElements_thenReturnsTrue() {
     // Given
-    final var list = new CustomLinkedList<>(List.of(1,3,2,5));
+    final var list = new CustomLinkedList<>(List.of(1, 3, 2, 5));
     final var expectedResult = true;
 
     // When

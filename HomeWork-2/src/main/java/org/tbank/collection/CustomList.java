@@ -8,6 +8,7 @@ public interface CustomList<T> {
   boolean add(T data);
 
   boolean remove(T data);
+
   boolean removeAt(int index);
 
   int size();

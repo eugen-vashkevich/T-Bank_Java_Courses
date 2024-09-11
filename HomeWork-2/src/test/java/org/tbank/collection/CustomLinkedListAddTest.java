@@ -23,7 +23,7 @@ class CustomLinkedListAddTest {
   @Test
   void nonEmptyList_whenAddOneElement_thenReturnTrue() {
     // Given
-    final var list = new CustomLinkedList<>(List.of(1,2,3));
+    final var list = new CustomLinkedList<>(List.of(1, 2, 3));
     final var expectedResult = true;
 
     // When

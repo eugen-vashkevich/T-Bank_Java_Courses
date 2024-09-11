@@ -1,14 +1,22 @@
 package org.tbank.collection;
 
+import lombok.NoArgsConstructor;
+
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@NoArgsConstructor
 public class CustomLinkedList<T> implements CustomList<T> {
   private Node<T> head;
   private Node<T> tail;
 
   private int size;
+
+  public CustomLinkedList(List<? extends T> values) {
+    addAll(values);
+  }
 
   @Override
   public T get(int index) {
@@ -23,7 +31,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
   }
 
   @Override
-  public void add(T data) {
+  public boolean add(T data) {
     final var newNode = new Node<>(data);
     if (head == null) {
       head = newNode;
@@ -33,6 +41,49 @@ public class CustomLinkedList<T> implements CustomList<T> {
       tail = newNode;
     }
     size++;
+    return true;
+  }
+
+  @Override
+  public boolean remove(T data) {
+    var node = head;
+    for (int i = 0; i < size; i++) {
+      if (node.getValue().equals(data)) {
+        return remove(i);
+      }
+      node = node.getNext();
+    }
+    return false;
+  }
+
+  @Override
+  public boolean remove(int index) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+    }
+
+    if (index == 0) {
+      head = head.getNext();
+      if (head == null) {
+        tail = null;
+      }
+      size--;
+      return true;
+    }
+
+    var current = head;
+    for (int i = 0; i < index - 1; i++) {
+      current = current.getNext();
+    }
+
+    current.setNext(current.getNext().getNext());
+
+    if (current.getNext() == null) {
+      tail = current;
+    }
+
+    size--;
+    return true;
   }
 
   @Override
@@ -53,10 +104,11 @@ public class CustomLinkedList<T> implements CustomList<T> {
   }
 
   @Override
-  public void addAll(List<? extends T> values) {
+  public boolean addAll(List<? extends T> values) {
     for (var item : values) {
       add(item);
     }
+    return true;
   }
 
   @Override

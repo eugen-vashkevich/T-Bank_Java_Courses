@@ -162,4 +162,19 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
     return true;
   }
+
+  @Override
+  public String toString() {
+    final var sb = new StringBuilder("[");
+   var current = head;
+    while (current != null) {
+      sb.append(current.getValue());
+      if (current.getNext() != null) {
+        sb.append(", ");
+      }
+      current = current.getNext();
+    }
+    sb.append("]");
+    return sb.toString();
+  }
 }

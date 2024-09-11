@@ -2,7 +2,6 @@ package org.tbank.collection;
 
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -49,7 +48,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
     var node = head;
     for (int i = 0; i < size; i++) {
       if (node.getValue().equals(data)) {
-        return remove(i);
+        return removeAt(i);
       }
       node = node.getNext();
     }
@@ -57,7 +56,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
   }
 
   @Override
-  public boolean remove(int index) {
+  public boolean removeAt(int index) {
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
     }

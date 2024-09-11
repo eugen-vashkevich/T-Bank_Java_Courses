@@ -8,7 +8,7 @@ public interface CustomList<T> extends Iterable<T> {
   boolean add(T data);
 
   boolean remove(T data);
-  boolean remove(int index);
+  boolean removeAt(int index);
 
   int size();
 

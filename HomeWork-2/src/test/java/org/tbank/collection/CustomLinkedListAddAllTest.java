@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
-class CustomLinkedListTest {
+class CustomLinkedListAddAllTest {
 
   @Test
   void emptyLinkedList_whenAddAll_thenContainsAllElements() {
